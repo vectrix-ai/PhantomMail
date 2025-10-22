@@ -361,8 +361,7 @@ class GraphNodes:
         logger.info(f"Generated transport order: {transport_order}")
 
         # Randomly select an order template (1-6)
-        # order_number = random.randint(1, 6)
-        order_number = 6
+        order_number = random.randint(1, 6)
         logger.info(f"Selected order template: order_{order_number}")
 
         # Read HTML templates
@@ -489,6 +488,10 @@ class GraphNodes:
                 HumanMessage(content=prompt),
             ]
         )
+
+        if response is None:
+            logger.error("LLM returned None for structured output in generate_order")
+            raise ValueError("LLM failed to generate structured output for order email")
 
         response = response.model_dump()
 
