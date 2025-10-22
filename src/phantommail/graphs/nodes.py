@@ -1,3 +1,4 @@
+import os
 import random
 from importlib import resources
 
@@ -27,7 +28,9 @@ class GraphNodes:
     def __init__(self):
         """Initialize the graph nodes."""
         self.llm = ChatVertexAI(
-            model="gemini-2.5-pro", temperature=0.5, project="vectrix-demo"
+            model="gemini-2.5-pro",
+            temperature=0.5,
+            project=os.environ.get("GOOGLE_CLOUD_PROJECT", "manuport-mpl"),
         )
 
     def email_types(self, state: FakeEmailState, config):
@@ -193,7 +196,7 @@ class GraphNodes:
         )
         messages = [instruction, prompt]
         llm_with_tools = self.llm.with_structured_output(Email)
-        response = llm_with_tools.invoke(messages)
+        response = await llm_with_tools.ainvoke(messages)
         response = response.model_dump()
 
         return {"email": response["body_html"], "subject": response["subject"]}
@@ -358,7 +361,8 @@ class GraphNodes:
         logger.info(f"Generated transport order: {transport_order}")
 
         # Randomly select an order template (1-6)
-        order_number = random.randint(1, 6)
+        # order_number = random.randint(1, 6)
+        order_number = 6
         logger.info(f"Selected order template: order_{order_number}")
 
         # Read HTML templates

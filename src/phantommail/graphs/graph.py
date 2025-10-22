@@ -1,9 +1,13 @@
 from typing import TypedDict
 
+from dotenv import load_dotenv
 from langgraph.graph import END, START, StateGraph
 
 from phantommail.graphs.nodes import GraphNodes
 from phantommail.graphs.state import FakeEmailState
+
+# Load environment variables before initializing nodes
+load_dotenv()
 
 
 class ConfigSchema(TypedDict):
