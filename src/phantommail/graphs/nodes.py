@@ -1,9 +1,8 @@
-import os
 import random
 from importlib import resources
 
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_vertexai import ChatVertexAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from phantommail.fakers.complaint import FakeComplaint
 from phantommail.fakers.declaration import DeclarationGenerator
@@ -27,10 +26,9 @@ class GraphNodes:
 
     def __init__(self):
         """Initialize the graph nodes."""
-        self.llm = ChatVertexAI(
+        self.llm = ChatGoogleGenerativeAI(
             model="gemini-2.5-pro",
             temperature=0.5,
-            project=os.environ.get("GOOGLE_CLOUD_PROJECT", "manuport-mpl"),
         )
 
     def email_types(self, state: FakeEmailState, config):
