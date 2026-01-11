@@ -1,6 +1,6 @@
 [project]
 name = "phantommail"
-version = "0.1.14"
+version = "0.1.15"
 description = "phantommail is an app that generates fake order data and customer emails. "
 readme = "README.md"
 authors = [
